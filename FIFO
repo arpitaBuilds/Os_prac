@@ -1,0 +1,49 @@
+#include<stdio.h>
+
+int main(){
+    int i,j,n,f;
+    int pages[50], frames[10];
+    int fault=0, hit=0, index=0, found;
+
+    printf("Enter number of pages: ");
+    scanf("%d",&n);
+
+    printf("Enter page reference string:\n");
+    for(i=0;i<n;i++){
+        scanf("%d",&pages[i]);
+    }
+
+    printf("Enter number of frames: ");
+    scanf("%d",&f);
+
+    // Initialize frames
+    for(i=0;i<f;i++){
+        frames[i] = -1;
+    }
+
+    // FIFO Logic
+    for(i=0;i<n;i++){
+        found = 0;
+
+        // Check if page already present
+        for(j=0;j<f;j++){
+            if(frames[j] == pages[i]){
+                hit++;
+                found = 1;
+                break;
+            }
+        }
+
+        // If not found → Page Fault
+        if(found == 0){
+            frames[index] = pages[i];
+            index = (index + 1) % f;   // circular replacement
+            fault++;
+        }
+    }
+
+    printf("\nTotal Page Faults = %d",fault);
+    printf("\nTotal Page Hits = %d\n",hit);
+
+    return 0;
+}
