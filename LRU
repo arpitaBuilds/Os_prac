@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+int main() {
+    int frames, n, i, j, k, pos, hits = 0, faults = 0;
+
+    scanf("%d", &n);
+
+    int pages[n];
+    for(i = 0; i < n; i++) {
+        scanf("%d", &pages[i]);
+    }
+
+    scanf("%d", &frames);
+
+    int frame[frames], time[frames];
+
+    for(i = 0; i < frames; i++) {
+        frame[i] = -1;
+        time[i] = 0;
+    }
+
+    int counter = 0;
+
+    for(i = 0; i < n; i++) {
+        int found = 0;
+
+        for(j = 0; j < frames; j++) {
+            if(frame[j] == pages[i]) {
+                hits++;
+                counter++;
+                time[j] = counter;
+                found = 1;
+                break;
+            }
+        }
+
+        if(!found) {
+            faults++;
+
+            pos = 0;
+            for(k = 1; k < frames; k++) {
+                if(time[k] < time[pos]) {
+                    pos = k;
+                }
+            }
+
+            frame[pos] = pages[i];
+            counter++;
+            time[pos] = counter;
+        }
+    }
+
+    printf("%d\n%d\n", hits, faults);
+
+    return 0;
+}
