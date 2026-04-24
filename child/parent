@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/types.h>
+
+int main(){
+    int x;
+
+    x = fork();
+
+    if(x < 0){
+        printf("Process not created\n");
+    }
+    else if(x == 0){
+        printf("Process created (Child Process)\n");
+        printf("Child PID : %d\n", getpid());
+        printf("Parent PID : %d\n", getppid());
+    }
+    else{
+        printf("Process created (Parent Process)\n");
+        printf("Parent PID : %d\n", getpid());
+        printf("Child PID : %d\n", x);
+    }
+
+    return 0;
+}
