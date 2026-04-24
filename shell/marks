@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo "Enter marks for three subjects:"
+
+echo "Enter marks for OS:"
+read os
+
+echo "Enter marks for TOC:"
+read TOC
+
+echo "Enter marks for MES:"
+read MES
+
+total=$((os + TOC + MES))
+per=$((total * 100 / 300))
+
+if [ $per -ge 75 ]
+then
+    echo "Pass with distinction"
+
+elif [ $per -ge 60 ] && [ $per -le 74 ]
+then
+    echo "Pass with first class"
+
+elif [ $per -ge 50 ]
+then
+    echo "Pass with second class"
+
+else
+    echo "Fail"
+fi
