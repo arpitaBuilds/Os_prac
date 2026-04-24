@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+int main() {
+    int cpr1, cpr2, cpr3;
+
+    // First fork
+    cpr1 = fork();
+
+    if (cpr1 == 0) {
+        // Child 1
+        sleep(8);
+        printf("Hello from 1st child process\n");
+        printf("Process ID: %d\n", getpid());
+    }
+    else if (cpr1 < 0) {
+        printf("First child process not created\n");
+    }
+    else {
+        // Only parent enters here
+
+        // Second fork
+        cpr2 = fork();
+
+        if (cpr2 == 0) {
+            // Child 2
+            sleep(6);
+            printf("Hello from 2nd child process\n");
+            printf("Process ID: %d\n", getpid());
+        }
+        else if (cpr2 < 0) {
+            printf("Second child process not created\n");
+        }
+        else {
+            // Only parent again
+
+            // Third fork
+            cpr3 = fork();
+
+            if (cpr3 == 0) {
+                // Child 3
+                printf("Hello from 3rd child process\n");
+                printf("Process ID: %d\n", getpid());
+            }
+            else if (cpr3 < 0) {
+                printf("Third child process not created\n");
+            }
+        }
+    }
+
+    return 0;
+}
